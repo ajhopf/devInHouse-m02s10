@@ -3,8 +3,6 @@ package com.devinhouse.m02s10.repositories.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-
 @Entity
 @Getter
 @Setter
@@ -22,7 +20,7 @@ public class ProdutoEntity {
     @Column
     String descricao;
     @Column
-    Date dataLancamento;
+    String dataLancamento;
     @Column
     Double valor;
 }

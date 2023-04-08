@@ -13,8 +13,18 @@ public class ProdutoService {
     @Autowired
     ProdutoRepository repository;
 
-    public List<ProdutoEntity> getProdutos() {
-        return (List<ProdutoEntity>) repository.findAll();
+    public List<ProdutoDto> getProdutos() {
+        return repository.findAll()
+                .stream()
+                .map(
+                        produtoEntity -> new ProdutoDto(
+                                produtoEntity.getNome(),
+                                produtoEntity.getDescricao(),
+                                produtoEntity.getDataLancamento(),
+                                produtoEntity.getValor()
+                        )
+                )
+                .toList();
     }
 
     public void criarProduto(ProdutoDto produto) {
@@ -22,7 +32,7 @@ public class ProdutoService {
                 ProdutoEntity.builder()
                         .nome(produto.getNome())
                         .descricao(produto.getDescricao())
-                        .dataLancamento(produto.getDataLancamento())
+                        .dataLancamento(String.valueOf(produto.getDataLancamento()))
                         .valor(produto.getValor())
                         .build()
         );

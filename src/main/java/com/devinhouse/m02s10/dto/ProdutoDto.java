@@ -1,13 +1,15 @@
 package com.devinhouse.m02s10.dto;
 
-import lombok.Data;
+import lombok.*;
 
-import java.util.Date;
-
-@Data
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProdutoDto {
     private String nome;
     private String descricao;
-    private Date dataLancamento;
+    private String dataLancamento;
     private Double valor;
 }
