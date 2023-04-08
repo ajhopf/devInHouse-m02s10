@@ -5,7 +5,7 @@
     <title>Incluir Produto</title>
 </head>
 <body>
-    <form action="#" th:action="@{/produto}" th:object="${produtoDto}" method="post">
+    <form action="#" th:action="@{/produto}" th:object="${produto}" method="post">
       <label for="name">Name</label>
       <input type="text" th:field="*{nome}" id="name" placeholder="nome">
 
@@ -22,13 +22,30 @@
     </form>
 
     <div>
+
         <h2>Lista de produtos cadastrados: </h2>
-        <ul th:each="produto: ${produtosList}">
-            <li th:text="${produto.getNome()}"></li>
-            <li th:text="${produto.getDescricao()}"></li>
-            <li th:text="${produto.getDataLancamento()}"></li>
-            <li th:text="${produto.getValor()}"></li>
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Data de Lançamento</th>
+                    <th>Valor</th>
+                    <th>Atualizar</th>
+                    <th>Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="produto: ${produtosList}">
+                    <td th:text="${produto.getNome()}"></td>
+                    <td th:text="${produto.getDescricao()}"></td>
+                    <td th:text="${produto.getDataLancamento()}"></td>
+                    <td th:text="${produto.getValor()}"></td>
+                    <td><a th:href="@{/produto/atualizar/{id}(id=${produto.getId()})}" class="btn btn-primary">Atualizar</a></td>
+                    <td><a th:href="@{/produto/delete/{id}(id=${produto.getId()})}" class="btn btn-primary">Deletar</a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

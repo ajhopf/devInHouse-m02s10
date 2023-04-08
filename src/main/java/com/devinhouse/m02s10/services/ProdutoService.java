@@ -18,6 +18,7 @@ public class ProdutoService {
                 .stream()
                 .map(
                         produtoEntity -> new ProdutoDto(
+                                produtoEntity.getId(),
                                 produtoEntity.getNome(),
                                 produtoEntity.getDescricao(),
                                 produtoEntity.getDataLancamento(),
@@ -25,6 +26,11 @@ public class ProdutoService {
                         )
                 )
                 .toList();
+    }
+
+    public ProdutoEntity getProdutoById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Id de produto inválido: " + id));
     }
 
     public void criarProduto(ProdutoDto produto) {
@@ -36,6 +42,18 @@ public class ProdutoService {
                         .valor(produto.getValor())
                         .build()
         );
+    }
+
+    public void deletarProduto(Integer produtoId) {
+        repository.deleteById(produtoId);
+    }
+
+    public void deletarProduto(ProdutoEntity produto) {
+        repository.delete(produto);
+    }
+
+    public void atualizarProduto(ProdutoEntity produto) {
+        repository.save(produto);
     }
 
 }
